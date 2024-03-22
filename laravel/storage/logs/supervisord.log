@@ -1,0 +1,32 @@
+2024-03-21 04:13:56,123 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-03-21 04:13:56,429 INFO RPC interface 'supervisor' initialized
+2024-03-21 04:13:56,429 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2024-03-21 04:13:56,430 INFO supervisord started with pid 1
+2024-03-21 04:14:39,777 INFO spawned: 'websockets' with pid 15
+2024-03-21 04:14:39,793 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:14:40,798 INFO spawned: 'websockets' with pid 16
+2024-03-21 04:14:40,830 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:14:42,839 INFO spawned: 'websockets' with pid 17
+2024-03-21 04:14:42,867 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:14:45,874 INFO spawned: 'websockets' with pid 18
+2024-03-21 04:14:45,903 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:14:46,906 INFO gave up: websockets entered FATAL state, too many start retries too quickly
+2024-03-21 04:14:48,577 INFO spawned: 'websockets' with pid 20
+2024-03-21 04:14:48,593 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:14:49,597 INFO spawned: 'websockets' with pid 21
+2024-03-21 04:14:49,620 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:14:51,628 INFO spawned: 'websockets' with pid 22
+2024-03-21 04:14:51,658 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:14:54,665 INFO spawned: 'websockets' with pid 23
+2024-03-21 04:14:54,694 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:14:55,696 INFO gave up: websockets entered FATAL state, too many start retries too quickly
+2024-03-21 04:15:02,181 INFO spawned: 'websockets' with pid 25
+2024-03-21 04:15:02,197 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:15:03,201 INFO spawned: 'websockets' with pid 26
+2024-03-21 04:15:03,233 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:15:05,241 INFO spawned: 'websockets' with pid 27
+2024-03-21 04:15:05,268 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:15:08,275 INFO spawned: 'websockets' with pid 28
+2024-03-21 04:15:08,311 WARN exited: websockets (exit status 1; not expected)
+2024-03-21 04:15:09,313 INFO gave up: websockets entered FATAL state, too many start retries too quickly
+2024-03-21 04:17:35,520 WARN received SIGQUIT indicating exit request
