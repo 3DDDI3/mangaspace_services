@@ -53,6 +53,7 @@ services:
     command: "supervisord -n -c /etc/supervisord.conf"
     ports:
       - 6001:6001
+      - 9001:9001
     networks:
       - backend
   

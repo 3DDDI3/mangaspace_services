@@ -62,24 +62,22 @@ class Consumer extends Command
         $channel->queue_declare('result_queue', false, true, false, false);
         $channel->queue_declare('another_queue', false, true, false, false);
 
-        echo " [*] Waiting for messages. To exit press CTRL+C\n";
-
         // Установка коллбэка для обработки сообщений из 'result_queue'
         $channel->basic_consume('result_queue', '', false, false, false, false, function ($msg) use ($channel) {
-            echo ' [x] Received ', $msg->body, "\n";
+            $headers = $msg->get('application_headers')->getNativeData();
+            
 
-            $msg = new AMQPMessage('Hello World!');
-            $headers = new AMQPTable(array('key' => '213'));
-            $msg->set('application_headers', $headers);
-            $channel->basic_publish($msg, '', 'another_queue');
+            // $msg = new AMQPMessage('Hello World!');
+            // $headers = new AMQPTable(array('key' => '213'));
+            // $msg->set('application_headers', $headers);
+            // $channel->basic_publish($msg, '', 'another_queue');
 
             // $channel->basic_publish(new AMQPMessage('heko'), '', 'another_queue');
             // Обработка сообщения
             // ...
-
             // Прослушивание другой очереди 'another_queue'
             $channel->basic_consume('another_queue', '', false, false, false, false, function ($msg) use ($channel) {
-                // echo ' [x] Received from another_queue: ', $msg->body, "\n";
+                echo ' [x] Received from another_queue: ', $msg->body, "\n";
                 // echo $msg->get('application_headers')->getNativeData()['key'];
                 echo $msg->delivery_info['delivery_tag'];
                 // Обработка сообщения из другой очереди
