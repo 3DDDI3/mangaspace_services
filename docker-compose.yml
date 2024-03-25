@@ -21,7 +21,6 @@ services:
     volumes:
       - ./src:/var/www/laravel
     networks:
-      - backend
       - ws_sv_rmq
 
   rabbitmq:
@@ -39,6 +38,7 @@ services:
     #   - ./data/rabbitmq:/var/lib/rabbitmq
     networks:
       - backend
+      # - ws_sv_rmq
 
   supervisor:
     build:
@@ -46,7 +46,6 @@ services:
       dockerfile: supervisor.Dockerfile
     container_name: supervisor
     volumes:
-      - supervisor:/var/www/laravel
       - ./src:/var/www/laravel
       - ./configs/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf:ro
       - ./configs/supervisord.conf:/etc/supervisord.conf:ro
@@ -54,9 +53,9 @@ services:
     command: "supervisord -n -c /etc/supervisord.conf"
     ports:
       - 6001:6001
-      - 9001:9001
     networks:
       - backend
+      # - ws_sv_rmq
 
   #вспомогательные контейнеры
   composer:
@@ -89,5 +88,5 @@ networks:
     driver: bridge
 
 volumes:
-  supervisor:
+  sv:
     external: true

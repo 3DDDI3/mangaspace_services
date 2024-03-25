@@ -30,9 +30,10 @@ class Consumer extends Command
      */
     public function handle()
     {
+
         $connection = new AMQPStreamConnection(config('rabbitmq.host'), config('rabbitmq.port'), config('rabbitmq.user'), config('rabbitmq.password'));
         $channel = $connection->channel();
-
+        echo " [*] Waiting for messages. To exit press CTRL+C\n";
         // $channel->exchange_declare('auth', 'direct');
         // $channel->queue_declare('request', false, false, false, false);
         // $channel->queue_declare('response', false, false, false, false);
