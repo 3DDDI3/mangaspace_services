@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Authorization;
 
+use App\Events\test;
 use Illuminate\Console\Command;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -29,13 +30,15 @@ class Publisher extends Command
      */
     public function handle()
     {
-        $connection = new AMQPStreamConnection(config('rabbitmq.host'), config('rabbitmq.port'), config('rabbitmq.user'), config('rabbitmq.password'));
-        $channel = $connection->channel();
+        // $connection = new AMQPStreamConnection(config('rabbitmq.host'), config('rabbitmq.port'), config('rabbitmq.user'), config('rabbitmq.password'));
+        // $channel = $connection->channel();
 
-        $msg = new AMQPMessage('Hello World!');
-        $channel->basic_publish($msg, 'auth', 'request');
+        // $msg = new AMQPMessage('Hello World!');
+        // $channel->basic_publish($msg, 'auth', 'request');
 
-        echo " [x] Sent 'Hello World!'\n";
+        // echo " [x] Sent 'Hello World!'\n";
+
+        broadcast(new test('asdasd'));
 
         return Command::SUCCESS;
     }
