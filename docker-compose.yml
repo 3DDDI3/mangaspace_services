@@ -22,8 +22,8 @@ services:
     volumes:
       - ./src:/var/www/laravel
     networks:
-      # - backend
       - ws_sv_rmq
+      - test
 
   rabbitmq:
     container_name: rabbitmq
@@ -36,11 +36,11 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-    # volumes:
-    #   - ./data/rabbitmq:/var/lib/rabbitmq
+    volumes:
+      - ./data/rabbitmq:/var/lib/rabbitmq
     networks:
       - backend
-      # - ws_sv_rmq
+      - test
 
   supervisor:
     build:
@@ -85,10 +85,7 @@ networks:
   backend:
     driver: bridge
     external: true
-
   ws_sv_rmq:
     driver: bridge
-
-volumes:
-  sv:
-    external: true
+  test:
+    driver: bridge

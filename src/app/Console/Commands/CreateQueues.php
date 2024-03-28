@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Console\Commands\Authorization;
+namespace App\Console\Commands;
 
-use App\Events\test;
 use Illuminate\Console\Command;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
 
-class Publisher extends Command
+class CreateQueues extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'publisher';
+    protected $signature = 'queue:create';
 
     /**
      * The console command description.
@@ -33,12 +31,11 @@ class Publisher extends Command
         $connection = new AMQPStreamConnection(config('rabbitmq.host'), config('rabbitmq.port'), config('rabbitmq.user'), config('rabbitmq.password'));
         $channel = $connection->channel();
 
-        $msg = new AMQPMessage('Hello World!');
-        $channel->basic_publish($msg, 'catalog', 'request');
-
-        echo " [x] Sent 'Hello World!'\n";
-
-        // broadcast(new test('asdasd'));
+        //=====  Создание обменика catalog и его очередей  =====//
+        $channel->exchange_declare('catalog', 'direct');
+        $channel->queue_declare('request', auto_delete: false);
+        $channel->queue_declare('response', auto_delete: false);
+        $channel->queue_bind('request', 'catalog', 'request');
 
         return Command::SUCCESS;
     }
