@@ -36,6 +36,8 @@ class CreateQueues extends Command
         $channel->queue_declare('request', auto_delete: false);
         $channel->queue_declare('response', auto_delete: false);
         $channel->queue_bind('request', 'catalog', 'request');
+        $channel->queue_bind('response', 'catalog', 'response');
+        echo 'consume from mangaspace-serviceds';
 
         return Command::SUCCESS;
     }

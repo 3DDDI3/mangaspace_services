@@ -33,7 +33,30 @@ class Consumer extends Command
 
         $connection = new AMQPStreamConnection(config('rabbitmq.host'), config('rabbitmq.port'), config('rabbitmq.user'), config('rabbitmq.password'));
         $channel = $connection->channel();
+        // echo " [*] Waiting for messages. To exit press CTRL+C\n";
+
+        $channel->queue_declare('test', false, true, false, false);
+
         echo " [*] Waiting for messages. To exit press CTRL+C\n";
+
+        $callback = function ($msg) use ($channel) {
+            echo ' [x] Received ', $msg->body, "\n";
+            $channel->queue_declare('hello', false, false, false, false);
+
+            $msg = new AMQPMessage('Hello World!');
+            $channel->basic_publish($msg, '', 'hello');
+
+            echo " [x] Sent 'Hello World!'\n";
+        };
+
+        $channel->basic_consume('test', '', false, true, false, false, $callback);
+
+        try {
+            $channel->consume();
+        } catch (\Throwable $exception) {
+            echo $exception->getMessage();
+        }
+
         // $channel->exchange_declare('auth', 'direct');
         // $channel->queue_declare('request', false, false, false, false);
         // $channel->queue_declare('response', false, false, false, false);
@@ -66,7 +89,7 @@ class Consumer extends Command
         // Установка коллбэка для обработки сообщений из 'result_queue'
         $channel->basic_consume('result_queue', '', false, false, false, false, function ($msg) use ($channel) {
             $headers = $msg->get('application_headers')->getNativeData();
-            
+
 
             // $msg = new AMQPMessage('Hello World!');
             // $headers = new AMQPTable(array('key' => '213'));
